@@ -1,0 +1,67 @@
+.slide-background
+{
+	background-color: #000000;
+	background-position: center center;
+	background-size: cover;
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index: 0;
+}
+
+.slide-overlay
+{
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	background-color:rgba(0,0,0,0.50);
+	z-index: 1;
+}
+
+.description-overlay
+{
+	position:absolute;
+	padding:20px;
+	top:0;
+	left:0;
+	width:50%;
+	height:100%;
+	color:#fff;
+	z-index: 10;
+}
+
+.description-overlay > div
+{
+	background-color:rgba(0,0,0,0.60);
+	width:100%;
+	height:100%;
+	position:relative;
+}
+
+#slide .content 
+{
+	position:absolute;
+	bottom:0;
+	left:25%;
+	width:75%;
+	height:30%;
+}
+
+#slide h1
+{
+	font-weight:normal;
+	font-size:275%;
+	margin:0;
+	padding:0;
+}
+
+#slide .description
+{
+	font-weight:normal;
+	font-size:100%;
+	margin-top:10px;
+}

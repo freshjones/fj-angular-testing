@@ -1,0 +1,18 @@
+/*
+inspired by:
+https://github.com/minamarkham/sassy-starter/
+https://github.com/kachunchau/smacss-boilerplate
+https://github.com/davidrapson/scss-toolkit
+*/
+@import 'settings'; 
+@import 'mixins';
+@import 'base';
+@import 'helpers';
+@import 'modules/island';
+@import 'modules/horizontal-list';
+@import 'modules/buttons';
+@import 'modules/slideshow/controller';
+@import 'modules/slideshow/slides';
+@import 'layouts/page';
+@import 'states';
+@import 'modules/menu';

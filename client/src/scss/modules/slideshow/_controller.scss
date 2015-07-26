@@ -1,0 +1,38 @@
+.slide-controller
+{
+	position:absolute;
+	z-index:2;
+	bottom:50px;
+	right:50px;
+	cursor:pointer;
+}
+
+.slide-controller ul
+{
+	list-style:none;
+}
+
+.slide-controller li
+{
+	background-color: #ffffff;
+    border-radius: 25px;
+    width: 50px;
+	height: 50px;
+    position:relative;
+}
+
+.slide-controller li + li
+{
+	margin-top:10px;
+}
+
+.slide-controller li span
+{
+	display:block;
+	font-size:11px;
+	text-decoration:none;
+	color:#000;
+	position:absolute;
+	top:20px;
+	left:13px;
+}
