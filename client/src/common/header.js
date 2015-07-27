@@ -7,9 +7,14 @@
     $scope.toggleMenu = function() 
     {
     
-      if($state.current.name != 'root.menu')
+      if($state.current.name !== 'root.menu')
       {
-        $scope.previous = $state.current;
+
+        $scope.previous = {};
+
+        $scope.previous.name = $state.current.name;
+        $scope.previous.params = $state.params;
+
         $state.go('root.menu');
         
         $scope.pageClass = 'anim-slide-right';
@@ -18,16 +23,16 @@
         
         $scope.pageClass = 'anim-slide-left';
 
-        if($scope.previous == undefined)
+        if($scope.previous === undefined)
         {
-          $state.go('root.home');
+          $state.go('slideshow', {num:0});
         } else {
-          $state.go($scope.previous.name);
+          $state.go($scope.previous.name, $scope.previous.params);
         }
     
       }
     
-    }
+    };
   	
   }
 

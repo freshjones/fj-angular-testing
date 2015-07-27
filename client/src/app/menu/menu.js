@@ -22,14 +22,14 @@
    * @name  gettingStartedCtrl
    * @description Controller
    */
-  function menuCtrl($log, $scope, $state) 
+  function menuCtrl($log, $scope) 
   {
 
     $scope.pageID = 'menu';
     $scope.pageClass = 'menu';
 
     $scope.menulink = 'root.home';
-    var menu = this;
+    /* var menu = this; */
   
   }
 

@@ -10,7 +10,8 @@ body
 	height:inherit;
 }
 
-.ng-enter, .ng-leave 
+#menu.ng-enter, #menu.ng-leave,
+#home.ng-enter, #home.ng-leave
 {
 	position: absolute;
 	left: 0;

@@ -1,3 +1,12 @@
+.slide, .slide-wrapper
+{
+	width:inherit;
+	height:inherit;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+
 .slide-background
 {
 	background-color: #000000;
@@ -42,7 +51,7 @@
 	position:relative;
 }
 
-#slide .content 
+.description-overlay .content 
 {
 	position:absolute;
 	bottom:0;
@@ -51,7 +60,7 @@
 	height:30%;
 }
 
-#slide h1
+.description-overlay h1
 {
 	font-weight:normal;
 	font-size:275%;
@@ -59,9 +68,94 @@
 	padding:0;
 }
 
-#slide .description
+.description-overlay .description
 {
 	font-weight:normal;
 	font-size:100%;
 	margin-top:10px;
+}
+
+
+.slide
+{
+	
+	&.ng-animate
+	{
+		transform: translateX(0);
+		transition:all 500ms ease-in-out;
+	}
+
+	&.ng-enter 
+	{
+	  transform: translateY(-100%);
+	}
+
+	&.ng-enter-active {
+	  transform: translateY(0);
+	}
+
+	&.ng-leave
+	{
+	  transform: translateY(0);
+	}
+
+	&.ng-leave-active
+	{
+	  transform: translateY(100%);
+	}
+
+}
+
+.prev .slide
+{
+
+	&.ng-enter 
+	{
+	  transform: translateY(100%);
+	}
+
+	&.ng-enter-active {
+	  transform: translateY(0);
+	}
+
+	&.ng-leave
+	{
+	  transform: translateY(0);
+	}
+
+	&.ng-leave-active
+	{
+	  transform: translateY(-100%);
+	}
+}
+
+
+.description-overlay .content
+{
+
+	&.ng-animate
+	{
+		transition:all 500ms ease-in-out;
+	}
+
+	&.ng-enter 
+	{
+	  opacity:0;
+	}
+
+	&.ng-enter-active 
+	{
+	  opacity:1;
+	}
+
+	&.ng-leave
+	{
+	  opacity:1;
+	}
+
+	&.ng-leave-active
+	{
+	  opacity:0;
+	}
+
 }
