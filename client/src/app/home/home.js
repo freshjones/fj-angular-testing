@@ -153,10 +153,13 @@
 
     $scope.slideDirection = 'prev';
 
+    $scope.button_clicked = false;
+   
 
     $scope.prevSlide = function()
     {
 
+      $scope.button_clicked = true;
       $scope.slideDirection = 'prev';
 
       if( $state.params.num <= 0 )
@@ -176,6 +179,7 @@
     $scope.nextSlide = function()
     {
 
+      $scope.button_clicked = true;
       $scope.slideDirection = 'next';
 
       if( $state.params.num >= $scope.slideCount - 1 )

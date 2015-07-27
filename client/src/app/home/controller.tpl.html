@@ -1,6 +1,6 @@
 <div class="slide-controller">
 	<ul>
-		<li class="control-btn" ng-click="prevSlide()" ><span>Prev</span></li>
-		<li class="control-btn" ng-click="nextSlide()" 	><span>Next</span></li>
+		<li class="control-btn" ng-click="button_clicked || prevSlide()" ng-disabled="button_clicked"><span>Prev</span></li>
+		<li class="control-btn" ng-click="button_clicked || nextSlide()" ng-disabled="button_clicked"><span>Next</span></li>
 	</ul>
 </div>
