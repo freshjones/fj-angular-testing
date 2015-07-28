@@ -29,68 +29,49 @@
           'slide-controller@root.home': 
           {
             templateUrl: 'src/app/home/controller.tpl.html',
-            controller: function($log, $state, $scope){
-
-              $scope.scrolling = false;
+            controller: function($log, $state, $scope, $window)
+            {
 
               var doScroll = function (e) {
-                  
-                  // cross-browser wheel delta
-                  e = window.event || e;
 
-                  var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+                  e.preventDefault();
 
-                  if(!$scope.scrolling)
+                  if($state.current.name === 'slideshow')
                   {
 
-                    $scope.scrolling = true;
+                    // cross-browser wheel delta
+                    e = $window.event || e;
 
-                    if(delta === 1)
+                    var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+
+                    if($scope.button_clicked === false)
                     {
-
-                      $scope.slideDirection = 'next';
-
-                      if( $state.params.num >= $scope.slideCount - 1 )
-                      {
-                        var next = 0;
-                        $state.go('slideshow', {num:next});   
-
-                      } else {
-
-                        var next = parseInt($state.params.num) + 1;
-                        $state.go('slideshow', {num:next});
-
-                      }
-
-
-                    } else {
-
-                      $scope.slideDirection = 'prev';
-
-                      if( $state.params.num <= 0 )
-                      {
-                        var prev = parseInt($scope.slideCount) - 1;
-                        $state.go('slideshow', {num:prev});
                       
+                      $scope.disableButtons();
+
+                      if(delta == 1)
+                      {
+
+                        $scope.prevSlide();
+
                       } else {
 
-                        var prev = parseInt($state.params.num) - 1;
-                        $state.go('slideshow', {num:prev});
+                        $scope.nextSlide();
 
                       }
 
                     }
+                  
                   }
-
-                   e.preventDefault();
 
               };
 
-              if (window.addEventListener) {
-                  window.addEventListener("mousewheel", doScroll, false);
-                  window.addEventListener("DOMMouseScroll", doScroll, false);
+              if ($window.addEventListener) 
+              {
+                  $window.addEventListener("mousewheel", doScroll, false);
+                  $window.addEventListener("DOMMouseScroll", doScroll, false);
               } else {
-                  window.attachEvent("onmousewheel", doScroll);
+                  $window.attachEvent("onmousewheel", doScroll);
               }
              
             }
@@ -126,13 +107,7 @@
 
   }
 
-  function slidecontrollerCtrl($log)
-  {
 
-    
-
-
-  }
   /**
    * @name  HomeCtrl
    * @description Controller
@@ -140,8 +115,6 @@
   function HomeCtrl(data, $log, $scope, $state) 
   {
 
-    $log.debug('called');
-    /* var home = this; */
     $scope.pageID = 'home';
     $scope.pageClass = 'page';
 
@@ -155,22 +128,35 @@
 
     $scope.button_clicked = false;
    
+   $scope.disableButtons = function()
+   {
+      $scope.button_clicked = true;
+   }
+
+   $scope.enableButtons = function()
+   {
+      $scope.button_clicked = false;
+   }
+
+   $scope.scrollDirection = function(direction)
+   {
+      $scope.slideDirection = direction;
+   }
 
     $scope.prevSlide = function()
     {
-
-      $scope.button_clicked = true;
+      //$scope.button_clicked = true;
       $scope.slideDirection = 'prev';
 
       if( $state.params.num <= 0 )
       {
-        var prev = parseInt($scope.slideCount) - 1;
-        $state.go('slideshow', {num:prev});
+        $scope.activeSlide = parseInt($scope.slideCount) - 1;
+        $state.go('slideshow', {num: $scope.activeSlide});
       
       } else {
 
-        var prev = parseInt($state.params.num) - 1;
-        $state.go('slideshow', {num:prev});
+        $scope.activeSlide = parseInt($state.params.num) - 1;
+        $state.go('slideshow', {num: $scope.activeSlide});
 
       }
       
@@ -179,56 +165,49 @@
     $scope.nextSlide = function()
     {
 
-      $scope.button_clicked = true;
+      //$scope.button_clicked = true;
       $scope.slideDirection = 'next';
 
       if( $state.params.num >= $scope.slideCount - 1 )
       {
-        var next = 0;
-        $state.go('slideshow', {num:next});   
+        $scope.activeSlide = 0;
+        $state.go('slideshow', {num: $scope.activeSlide});   
 
       } else {
 
-        var next = parseInt($state.params.num) + 1;
-        $state.go('slideshow', {num:next});
+        $scope.activeSlide = parseInt($state.params.num) + 1;
+        $state.go('slideshow', {num: $scope.activeSlide });
 
       }
       
     }
+}
 
-   
-
-    /*
-    $scope.$watch(function(){
-      return $state.params;
-    }, function(p){
-      $scope.slide = $scope.slides[ $state.params.num ];
-    });
-    */
-    
-
-  }
 angular.module('home', ['ngAnimate'])
     .config(config)
     .controller('HomeCtrl', HomeCtrl)
-    .animation('.slide', ['$animateCss', function($animateCss) {
+    .directive('test', function($animate){
         return {
+          restrict: 'A',
+          link: function(scope, element, attributes){
 
+            $animate.on('enter', element, function(elem, phase) {
+              
+              if(phase === 'start')
+              {
+                scope.disableButtons();
+              } 
+              else if(phase === 'close')
+              {
+                scope.enableButtons();
+              }
 
-          enter: function(element, doneFn) {
+            });
 
-            var runner = $animateCss(element, {
-              event: 'enter',
-              structural: true
-            }).start();
-             runner.done(doneFn);
+          }
 
-          } 
-
-
-        }
-      }]);
-
+        };
+      });
 
   
 
